@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{C4BD6FD2-F355-4970-83B6-7FA2ED0AEB17}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="client\client.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="api_server\ApiServer.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="client">
+        <MSBuild Projects="client\client.dproj"/>
+    </Target>
+    <Target Name="client:Clean">
+        <MSBuild Projects="client\client.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="client:Make">
+        <MSBuild Projects="client\client.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ApiServer">
+        <MSBuild Projects="api_server\ApiServer.dproj"/>
+    </Target>
+    <Target Name="ApiServer:Clean">
+        <MSBuild Projects="api_server\ApiServer.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ApiServer:Make">
+        <MSBuild Projects="api_server\ApiServer.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="client;ApiServer"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="client:Clean;ApiServer:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="client:Make;ApiServer:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
